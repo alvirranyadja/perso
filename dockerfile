@@ -1,8 +1,9 @@
-FROM nginx:alpine
-LABEL maintainer="contact@eazytraining.fr"\
-      description="serveur nginx pour le site static à partir de local"
-RUN apk update && rm -rf /usr/share/nginx/html/*
-ADD static-website-example /usr/share/nginx/html/
+FROM ubuntu
+MAINTAINER dirane (diranetafen@yahoo.com) 
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx git
 EXPOSE 80
+#ADD static-website-example /var/www/html/
+RUN rm -Rf /var/www/html/*
+RUN git clone https://github.com/diranetafen/static-website-example.git /var/www/html/
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
-
